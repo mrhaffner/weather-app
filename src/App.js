@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from 'react';
+import Weather from './Components/Weather'
+import Input from './Components/Input'
 
 const App = () => {
+  const [city, setCity] = useState('London')
 
   const [weather, setWeather] = useState(null)
 
   useEffect(() => {
     getWeather()
-  });
+    console.log('getWeatherEffect')
+  }, []);
 
-
+  const kToF = (k) => (k - 273.15) * 9/5 + 32
 
   const createWeather = (data) => {
     return {
@@ -22,10 +26,10 @@ const App = () => {
   }
 
   const getWeather = async () => {
-    const response = await fetch(`//api.openweathermap.org/data/2.5/weather?q=London&appid=ed2da20037c4b8ee5881791f4fe6aa0d`, {mode: 'cors'})
+    const response = await fetch(`//api.openweathermap.org/data/2.5/weather?q=${city}&appid=ed2da20037c4b8ee5881791f4fe6aa0d`, {mode: 'cors'})
     const data = await response.json()
     setWeather(createWeather(data))
-    
+    console.log('getWeatherFunction')
   }
 
   function log () {
@@ -34,8 +38,9 @@ const App = () => {
 
   return (
     <div>
-      <h1>Hi</h1>
-      <button onClick={log}>Get Weather</button>
+      <h1>Welcome to The World of Weather</h1>
+      <Input setCity={setCity} />
+      {!weather === null ? <Weather weather={weather} /> : null }
     </div>
   );
 }
