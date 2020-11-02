@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 const Input = (props) => {
-    const { setCity } = props
+    const { setCity, getWeather } = props
 
     const [input, setInput] = useState('')
 
@@ -12,6 +12,7 @@ const Input = (props) => {
     const submitItem = (e) => {
         e.preventDefault();
         setCity(input)
+        getWeather(input)
     }
 
     return (

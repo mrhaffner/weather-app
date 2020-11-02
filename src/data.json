@@ -1,0 +1,1 @@
+{ "weather": [{"id":800,"main":"Clear","description":"clear sky","icon":"01d"}],"main": {"temp":75.74,"pressure":1017,"humidity":57,"temp_min":71.6,"temp_max":78.8}, "wind": {"speed":3.87,"deg":291}}

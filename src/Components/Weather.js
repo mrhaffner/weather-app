@@ -2,7 +2,9 @@ import React from 'react';
 
 const Weather = (props) => {
     const { weather } = props
+
     const kToF = (k) => (k - 273.15) * 9/5 + 32
+
     return (
         <div>
             <p>Current Temp: {kToF(weather.temp)}</p>

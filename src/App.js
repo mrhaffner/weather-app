@@ -8,11 +8,10 @@ const App = () => {
   const [weather, setWeather] = useState(null)
 
   useEffect(() => {
-    getWeather()
+    getWeather(city)
     console.log('getWeatherEffect')
   }, []);
 
-  const kToF = (k) => (k - 273.15) * 9/5 + 32
 
   const createWeather = (data) => {
     return {
@@ -24,12 +23,16 @@ const App = () => {
       description: data.weather[0].description,
     }
   }
-
-  const getWeather = async () => {
-    const response = await fetch(`//api.openweathermap.org/data/2.5/weather?q=${city}&appid=ed2da20037c4b8ee5881791f4fe6aa0d`, {mode: 'cors'})
-    const data = await response.json()
-    setWeather(createWeather(data))
-    console.log('getWeatherFunction')
+  
+  const getWeather = async (x) => {
+    try {
+      const response = await fetch(`//api.openweathermap.org/data/2.5/weather?q=${x}&appid=ed2da20037c4b8ee5881791f4fe6aa0d`, {mode: 'cors'})
+      const data = await response.json()
+      setWeather(createWeather(data))
+      console.log('getWeatherFunction')
+    } catch (error) {
+      alert(error)
+    }
   }
 
   function log () {
@@ -39,8 +42,10 @@ const App = () => {
   return (
     <div>
       <h1>Welcome to The World of Weather</h1>
-      <Input setCity={setCity} />
-      {!weather === null ? <Weather weather={weather} /> : null }
+      <h2>{city}</h2>
+      <button onClick={log}>log</button>
+      <Input setCity={setCity} getWeather={getWeather} />
+      {weather === null ? null : <Weather weather={weather} /> }
     </div>
   );
 }
